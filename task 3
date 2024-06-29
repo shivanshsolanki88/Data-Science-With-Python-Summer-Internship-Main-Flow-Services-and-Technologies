@@ -1,0 +1,23 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the CSV file into a DataFrame
+df = pd.read_csv(r'C:\Users\shiva\Downloads\sample_data.csv')
+
+# Create a bar chart
+plt.figure(figsize=(10, 5))
+plt.bar(df['Category'], df['Values'], color='skyblue', label='Values')
+plt.xlabel('Category')
+plt.ylabel('Values')
+plt.title('Bar Chart of Values by Category')
+plt.legend()
+plt.show()
+
+# Create a line chart
+plt.figure(figsize=(10, 5))
+plt.plot(df['Category'], df['LineValues'], marker='o', color='green', label='LineValues')
+plt.xlabel('Category')
+plt.ylabel('Line Values')
+plt.title('Line Chart of LineValues by Category')
+plt.legend()
+plt.show()
