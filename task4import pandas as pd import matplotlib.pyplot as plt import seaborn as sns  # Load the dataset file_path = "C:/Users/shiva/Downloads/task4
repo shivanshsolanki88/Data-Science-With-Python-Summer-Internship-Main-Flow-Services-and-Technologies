@@ -1,0 +1,62 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+file_path = "C:/Users/shiva/Downloads/videos_data.csv"
+data = pd.read_csv(file_path)
+
+# Display the first few rows of the dataset
+print("First few rows of the dataset:")
+print(data.head())
+
+# Display summary statistics
+print("\nSummary statistics of the dataset:")
+print(data.describe(include='all'))
+
+# Set plot style
+sns.set(style="whitegrid")
+
+# Histograms for numerical variables
+plt.figure(figsize=(10, 5))
+sns.histplot(data['Number of Videos'], kde=True)
+plt.title('Distribution of Number of Videos')
+plt.xlabel('Number of Videos')
+plt.ylabel('Frequency')
+plt.show()
+
+# Bar charts for categorical variables
+plt.figure(figsize=(10, 5))
+sns.countplot(x='Genre', data=data)
+plt.title('Distribution of Genres')
+plt.xlabel('Genre')
+plt.ylabel('Count')
+plt.show()
+
+plt.figure(figsize=(10, 5))
+sns.countplot(x='Type', data=data)
+plt.title('Distribution of Types')
+plt.xlabel('Type')
+plt.ylabel('Count')
+plt.show()
+
+plt.figure(figsize=(10, 5))
+sns.countplot(x='Composer', data=data)
+plt.title('Distribution of Composers')
+plt.xlabel('Composer')
+plt.ylabel('Count')
+plt.show()
+
+# Box plot to identify outliers
+plt.figure(figsize=(10, 5))
+sns.boxplot(x=data['Number of Videos'])
+plt.title('Box plot of Number of Videos')
+plt.xlabel('Number of Videos')
+plt.show()
+
+# Correlation matrix
+correlation_matrix = data.corr()
+plt.figure(figsize=(10, 5))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+plt.title('Correlation Matrix')
+plt.show()
