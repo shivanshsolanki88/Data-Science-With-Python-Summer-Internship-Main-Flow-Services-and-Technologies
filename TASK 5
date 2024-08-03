@@ -1,0 +1,111 @@
+# Importing important modules and libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Feature Engineering and Selection
+# Data Preprocessing
+# Loading data
+df = pd.read_csv('C:\\Users\\shiva\\Downloads\\heart.csv')
+
+# Displaying the first few rows of the dataframe
+print("First few rows of the dataframe:")
+print(df.head())
+
+# Displaying information about the dataframe
+print("\nInformation about the dataframe:")
+print(df.info())
+
+# Displaying statistical summary of the dataframe
+print("\nStatistical summary of the dataframe:")
+print(df.describe())
+
+# Data Cleaning
+# Checking for null values
+print("\nTotal null values:", df.isnull().sum().sum())
+
+# Checking for duplicates
+print("Total duplicates:", df.duplicated().sum())
+
+# Removing duplicated values
+df.drop_duplicates(inplace=True)
+print("\nStatistical summary after removing duplicates:")
+print(df.describe())
+
+# Data Visualization
+# Plotting histogram for all numeric values
+sns.set_style('dark')
+df.hist(bins=50, figsize=(14, 12))
+plt.show()
+
+# How many people have heart disease
+# Calculating how many have heart disease and how many haven't
+heart_disease_count = df['target'].value_counts()
+print("\nNumber of people with and without heart disease:")
+print(heart_disease_count)  # 1 - Has heart disease, 0 - No Heart disease
+
+# Plotting how many have heart disease
+sns.set_style('dark')
+sns.countplot(df, x='target', hue='target')
+plt.title('Heart Disease')
+plt.grid(True)
+plt.show()
+
+# Observation:
+print("\nObservation:")
+print("164 people have heart disease out of 302.")
+
+# People of which sex have the most heart disease
+# Identifying which sex is more prone to heart disease
+sns.countplot(df, x='sex', hue='target')
+plt.title('Heart Disease and Sex')
+plt.grid(True)
+plt.show()
+
+# Observation:
+print("\nObservation:")
+print("Males are more likely to have heart disease.")
+
+# People of which sex have which chest pain the most
+# Identifying different types of chest pains
+chest_pain_counts = df['cp'].value_counts()
+print("\nNumber of people with different types of chest pains:")
+print(chest_pain_counts)
+
+# Identifying which sex has what kind of chest pain the most
+sns.countplot(df, x='sex', hue='cp')
+plt.title('Sex and Chest Pains')
+plt.grid(True)
+plt.show()
+
+# Observation:
+print("\nObservation:")
+print("Males have type-0 chest pain the most and females have type-0 and type-2 majorly.")
+
+# People with which chest pain are most prone to have heart disease
+# Relation between chest pains and heart disease
+chest_pain_vs_target = pd.crosstab(df.cp, df.target)
+print("\nRelation between chest pains and heart disease:")
+print(chest_pain_vs_target)
+
+# Identifying which type of chest pain is more prone to heart disease
+sns.countplot(df, x='cp', hue='target')
+plt.title('Heart Disease and Chest Pains')
+plt.grid(True)
+plt.show()
+
+# Observation:
+print("\nObservation:")
+print("Type-2 chest pain is more prone to heart disease.")
+
+# Which age group is more prone to heart disease
+# Identifying which age group is more prone to heart disease
+target_age = df.query("target==1")
+sns.displot(target_age, x='age', bins=30, kde=True)
+plt.grid(True)
+plt.show()
+
+# Observation:
+print("\nObservation:")
+print("The 51-54 age group is more likely to have heart disease.")
